@@ -1,0 +1,84 @@
+---
+title: "ECO FAME"
+author: "OECD STI/EAS"
+date: "2015-09-18"
+# output:
+#   rmarkdown::html_vignette:
+output:
+  rmarkdown::html_fragment:
+    self_contained: false
+    lib_dir: libs
+    fig_width: 8
+    fig_height: 2.5
+# vignette: >
+#   %\VignetteIndexEntry{STAN Volume}
+#   %\VignetteEngine{knitr::rmarkdown}
+#   %\usepackage[utf8]{inputenc}
+---
+
+```{r setup, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+
+project_path <- file.path(file.path(dbpath, "GitHub", "jekyll", "industry", "extras", "project_programmed_charts"))
+
+## rmarkdown::render(file.path(project_path, "eco_fame.Rmd"))
+## file.copy(from = file.path(project_path, "eco_fame.html"), to = file.path(dbpath, "GitHub", "jekyll", "industry", "_includes", "rmarkdown_fragment", "eco_fame.html"), overwrite=TRUE)
+## browseURL(file.path("file:/", Sys.getenv("HOME"), "Dropbox", "GitHub", "jekyll", "industry", "extras", "project_programmed_charts", "eco_fame.html"))
+
+library(dygraphs)
+library(xts)
+library(dplyr)
+library(tidyr)
+
+df2xts <- function(data_df) {
+  data_xts <- data_df
+  rownames(data_xts) <- paste0(data_xts$Date, '-01-01')
+  data_xts <- subset(data_xts, select=names(data_xts)[!names(data_xts)%in%c("Date")])
+  data_xts <- xts::as.xts(data_xts, dateFormat="Date")
+  return(data_xts)
+}
+
+dygraph_vignette <- function(ylab, ...) {
+
+dygraph(...) %>%
+    dyAxis("y", label = ylab) %>%
+    ## dyAxis("y2", label = ylab) %>%
+    dyOptions(colors = "#4f81bd",
+              strokeWidth = 2) %>%
+          ## dyOptions(colors = RColorBrewer::brewer.pal(3, "Set2")) %>%
+      dyLegend(width=550, show="always") %>%
+         dyCSS("dygraph.css")
+}
+
+```
+
+```{r load_data, eval=TRUE, echo= FALSE}
+
+## system(paste("sublime_text", file.path(project_path, "Chap3_Fig2_E.csv")))
+data_csv <-
+    file.path(project_path, "Chap3_Fig2_E.csv") %>%
+        read.csv(skip = 8) %>%
+            filter(!is.na(OECD))
+
+```
+
+```{r dygraph_init_laspeyres, eval=TRUE, echo=TRUE}
+
+data_csv %>%
+  df2xts() %>% dygraph_vignette(main="Figure 3.2. Economic losses from climatological, meteorological and hydrological disasters", ylab = "2014 Billion USD") %>% # , ylab=y_lab
+  dySeries("World", strokePattern = "dashed", axis = "y")##  %>%
+  ## dySeries("World", strokePattern = "dashed", axis = "y2")
+
+```
+
+```{r plotly, eval=FALSE, echo=FALSE}
+## devtools::install_github("ropensci/plotly")
+library(plotly)
+
+## help(signup, package = "plotly")
+Sys.setenv("plotly_username" = "bowerth")
+Sys.setenv("plotly_api_key" = "cy8hzk1d2v")
+
+p <- plot_ly(data_csv, x = Date, y = OECD, name = "OECD") %>%
+  add_trace(y = World, name = "World", data = data_csv)
+p
+```

@@ -1,0 +1,72 @@
+## Total = (EXGR_DDC_SV + EXGR_IDC_SV + EXGR_RIM_SV + EXGR_FVA_SV) / EXGRXGR * 100
+## Foreign content = EXGR / EXGR_FVA_SV * 100
+## Domestic content = Total - Foreign content
+data7 <- data2009[data2009$ind=='Total' & data2009$par=='Total' & !data2009$cou=='ROW' & data2009$indic%in%c('EXGR','EXGR_DDC_SV','EXGR_IDC_SV','EXGR_RIM_SV','EXGR_FVA_SV'),]
+data7c <- dcast(data7, year + cou + par + ind ~ indic, value.var = 'value')
+data7c$total <- (data7c$EXGR_DDC_SV + data7c$EXGR_IDC_SV + data7c$EXGR_RIM_SV + data7c$EXGR_FVA_SV) / data7c$EXGR * 100
+data7c$foreign <- data7c$EXGR_FVA_SV/ data7c$EXGR * 100
+data7c$domestic <- data7c$total - data7c$foreign
+data7m <- melt(data7c[,colnames(data7c)%in%c('year','cou','par','ind','foreign','domestic','total')], id.vars = c('year','cou','par','ind'))
+## join country labels
+data7m <- merge(data7m, namereg)
+## order country label factor levels by values ('total')
+## data7m$country <- factor(data7m$country, levels=data7m$country[data7m$variable=='total'][order(data7
+data7m$cou <- factor(data7m$cou, levels=data7m$cou[data7m$variable=='total'][order(data7m[data7m$variable=='total',colnames(data7m)%in%c('value')])])
+## change order of stacking
+data7m$variable <- factor(data7m$variable, levels=rev(unique(levels(data7m$variable))))
+## add colours based on country code
+data7m$col <- 1
+data7m$col[data7m$variable=='domestic'] <- 2
+data7m$col[data7m$cou==cou] <- 3
+data7m$col[data7m$cou==cou & data7m$variable=='domestic'] <- 4
+
+data7a <- data1995[data1995$ind=='Total' & data1995$par=='Total' & !data1995$cou=='ROW' & data1995$indic%in%c('EXGR','EXGR_DDC_SV','EXGR_IDC_SV','EXGR_RIM_SV','EXGR_FVA_SV'),]
+data7ac <- dcast(data7a, year + cou + par + ind ~ indic, value.var = 'value')
+data7ac$total <- (data7ac$EXGR_DDC_SV + data7ac$EXGR_IDC_SV + data7ac$EXGR_RIM_SV + data7ac$EXGR_FVA_SV) / data7ac$EXGR * 100
+data7ac$foreign <- data7ac$EXGR_FVA_SV/ data7ac$EXGR * 100
+data7ac$domestic <- data7ac$total - data7ac$foreign
+data7am <- melt(data7ac[,colnames(data7ac)%in%c('year','cou','par','ind','foreign','domestic','total')], id.vars = c('year','cou','par','ind'))
+## join country labels
+data7am <- merge(data7am, namereg)
+## order country label factor levels by values ('total')
+## data7am$country <- factor(data7am$country, levels=data7am$country[data7am$variable=='total'][order(data7a
+## data7am$cou <- factor(data7am$cou, levels=data7am$cou[data7am$variable=='total'][order(data7am[data7am$variable=='total',colnames(data7am)%in%c('value')])])
+data7am$cou <- factor(data7am$cou, levels=levels(data7m$cou))
+data7am$col <- 1
+data7am$col[data7m$variable=='domestic'] <- 2
+data7am$col[data7m$cou==cou] <- 3
+data7am$col[data7m$cou==cou & data7m$variable=='domestic'] <- 4
+
+data7am <- data7am[data7am$variable=='total',]
+data7m <- data7m[data7m$variable%in%c('domestic','foreign'),]
+
+.perc7 <- round(sum(data7m$value[data7m$cou==cou]))
+.avrg7 <- round(mean(data7am$value[data7am$cou%in%oecd]))
+if(.perc7 >= (.avrg7 + 5)) .rel7 <- 'above' else if(.perc7 < (.avrg7 - 5)) .rel7 <- 'below' else .rel7 <- 'around'
+
+f7 <- qplot(cou,
+            value,
+            data = data7m,
+            fill = as.factor(col),
+            order = variable,
+            position = "stack",
+            width = 0.6,
+            geom = "bar",
+            stat = "identity") +
+    scale_fill_brewer(guide = guide_legend(keyheight=.2),
+                      palette = 'Paired',
+                      name = "",
+                      labels = c("Foreign value added contents of gross exports", "Domestic contents", "",paste(as.character(namereg$country[match(cou, namereg$cou)]), '1995'))) +
+    geom_hline(yintercept = .avrg7, colour = "grey50", size = 0.5, linetype = 2) +
+    geom_point(data = data7am, aes(x = as.factor(cou), y = value), size = 3, shape = 18) +
+    geom_point(data = data7am, aes(x = as.factor(cou), y = value), size = 2.5, shape = 18, colour = "white") +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.x = element_text(angle=90, hjust=1, vjust=.4),
+          axis.text.y = element_text(size=axis.text.size),
+          axis.ticks = element_line(linetype=0),
+          legend.position = "top",
+          legend.text=element_text(size=legend.text.size)
+          )
+print(f7)
+

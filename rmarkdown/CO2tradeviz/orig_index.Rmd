@@ -1,0 +1,130 @@
+---
+title: "CO2 in embodied in final domestic demand and in exports "
+runtime: shiny
+output: html_document
+---
+
+
+```{r, echo = FALSE}
+## rmarkdown::run(file.path("C:/Temp/Dropbox/2015sut-io/6_Application_CO2_ENVstringency/Rfiles/CO2tradeviz", "index.Rmd"))
+## rmarkdown::run(file.path(dbpath, "GitHub", "jekyll", "industry", "rmarkdown", "CO2tradeviz", "index.Rmd"))
+## C:\Temp\Dropbox\2015sut-io\1_datasources\10_IEA\CO2\Rdata\DATA.co2inttotal.Rdata
+## https://www.dropbox.com/s/2bikm2x5tjfv9jx/DATA.co2inttotal.Rdata?dl=0
+
+## setwd("C:/Temp/Dropbox/2015sut-io/6_Application_CO2_ENVstringency/Rfiles/CO2tradeviz")
+load(file.path("data","indic.EXGR_DoverDFCO2.Rdata"))
+load(file.path("data","indic.EXGR_DCO2.Rdata"))
+load(file.path("data","indic.EXGR_FCO2.Rdata"))
+load(file.path("data","indic.EXGR_DCO2SH.Rdata"))
+load(file.path("data","indic.EXGR_FCO2SH.Rdata"))
+load(file.path("data","indic.EXGR_netCO2.Rdata"))
+
+load(file.path("data","indic.FDCO2.Rdata"))
+indicatorlist <- list("Share of domestic emissions in total emissions embodied in exports, %",
+                               "Domestic emissions embodied in exports, million t",
+                               "Foreign emissions embodied in exports, million t",
+                               "Total emissions embodied in exports, million t",
+                               "Emissions embodied in exports, net-exports, million t",
+                               "Emissions embodied in domestic final demand, million t")
+
+#input = list(cou=c("AUT","AUS"),ind=c("C01T05","C10T14"),ptn=c("AUS","WOR"))
+
+data_mat <- indic.EXGR_DoverDFCO2
+
+library(shiny)
+library(ggplot2)
+
+shinyApp(
+
+  ui = fluidPage(
+    fluidRow(
+    inputPanel(
+    selectInput("cou", "Country:",
+                choices = dimnames(data_mat)[[2]],
+                selected = c("AUS", "AUT"),
+                multiple = TRUE
+                )
+     ,
+    selectInput("ind", "Industry:",
+                choices = dimnames(data_mat)[[3]],
+                selected = c("C01T05", "C10T14"),
+                multiple = TRUE
+                )
+     ,
+    selectInput("ptn", "Partner:",
+                choices = dimnames(data_mat)[[4]],
+                selected = c("OECD", "WOR"),
+                multiple = TRUE
+                )
+    )
+    )
+    ,
+    fluidRow(
+      column(12, 
+    # div(style="width: 250%;",
+        selectInput("var", "Indicator:",
+                #choices = list("indic.EXGR_DoverDFCO2","indic.EXGR_DCO2","indic.EXGR_FCO2","indic.EXGR_DCO2SH","indic.EXGR_FCO2SH","indic.FD_CO2"),
+                choices = indicatorlist,
+                selected = indicatorlist[[1]],
+                multiple = FALSE
+                )
+        )
+        )
+     ,
+      list(
+          p("List:", a(href = "http://www.oecd.org/sti/ind/ICIO2015_Industries_Items.pdf", "ICIO 2015 Industry Items"))
+          )
+      ,
+    strong(textOutput("text1"))
+    ,
+    textOutput("text2")
+    ,
+    plotOutput("barplot", height=600)
+      ),
+
+  server = function(input, output) {
+    #data_mat <- input$var
+    
+    output$text1 <- renderText({ 
+      paste(input$var)
+    })
+    output$text2 <- renderText({ 
+      paste(switch(input$var, 
+        "Share of domestic emissions in total emissions embodied in exports, %" = "EXGR_DoverDFCO2: country = exporter, industry = exporting industry, partner = importing country",
+        "Domestic emissions embodied in exports, million t" =  "EXGR_DCO2: country = exporter, industry = exporting industry, partner = importing country",
+        "Foreign emissions embodied in exports, million t" =  "EXGR_FCO2: country = exporter, industry = exporting industry, partner = importing country",
+        "Total emissions embodied in exports, million t" =  "EXGR_DCO2+EXGR_FCO2: country = exporter, industry = exporting industry, partner = importing country",
+        "Emissions embodied in exports, net-exports, million t" = "EXGR_netCO2, country = exporter, industry = exporting industry, partner = importing country",
+        "Emissions embodied in domestic final demand, million t" =  "FDCO2: country = emitting country, industry = emitting industry, partner = final demand country"
+        ))
+    })
+
+    output$barplot <- renderPlot({
+ data_mat <- switch(input$var, 
+        "Share of domestic emissions in total emissions embodied in exports, %" = indic.EXGR_DoverDFCO2,
+        "Domestic emissions embodied in exports, million t" = indic.EXGR_DCO2,
+        "Foreign emissions embodied in exports, million t" = indic.EXGR_FCO2,
+        "Total emissions embodied in exports, million t" = indic.EXGR_DCO2+indic.EXGR_FCO2,
+        "Emissions embodied in exports, net-exports, million t" = indic.EXGR_netCO2,
+        "Emissions embodied in domestic final demand, million t" = indic.FDCO2)
+        
+        data_plot <- reshape2::melt(data_mat[, input$cou, input$ind, input$ptn], drop = FALSE)
+        names(data_plot) <- c("year", "cou", "ind","ptn", "value")
+        
+        #data_plot <- subset(data_plot,ptn=="WOR")
+        ggplot(data = data_plot, aes(group=ind)) +
+            geom_line(aes(x = year, y = value, col = ind, linetype=ind), width = 0.8, stat = "identity") +
+                #facet_grid(cou ~ ind) +
+                facet_grid(ptn ~cou) + # (. ~ ptn) horizontal (ptn ~ .) vertical
+                  #scale_y_continuous(limits = c(0, 100)) +
+                    xlab("Country") +
+                        ylab("Partner")  
+                  
+
+    })
+
+  },
+
+  options = list(height = 1000)
+)
+```

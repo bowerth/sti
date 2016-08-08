@@ -1,0 +1,114 @@
+## install.packages("brew")
+## install.packages("xlsx")
+
+require(brew)
+require(knitr)
+require(markdown)
+require(xlsx)
+require(ggplot2)
+require(reshape2)
+library(RColorBrewer)
+library(gridExtra)
+
+path <- file.path(dbpath, "GitHub", "jekyll", "brew", "test")
+path.rmd <- file.path(path, "Rmd") # Rnw and tex files are created here
+path.md <- file.path(path, "md")
+## path.html <- file.path(path, "html")
+
+path.data <- file.path("~", "Downloads")
+## filename <- "indic_oecdwto_cubeAC"
+filename <- "OECD-WTO_TiVA_"
+
+nameind <- read.csv(file.path(path, "data", "nameind.csv"))
+namereg <- read.csv(file.path(path, "data", "namereg.csv"))
+oecd <- namereg$cou[namereg$inoecd==1]; oecd <- as.character(oecd[order(oecd)])
+eu27 <- namereg$cou[namereg$region=='EU27']; eu27 <- as.character(eu27[order(eu27)])
+americas <- namereg$cou[namereg$region=='Americas']; americas <- as.character(americas[order(americas)])
+eastasia <- namereg$cou[namereg$region=='East Asia']; eastasia <- as.character(eastasia[order(eastasia)])
+asean <- namereg$cou[namereg$region=='ASEAN']; asean <- as.character(asean[order(asean)])
+asiapacific <- namereg$cou[namereg$region=='Ot.ASIA-PACIFIC']; asiapacific <- as.character(asiapacific[order(asiapacific)])
+othereu27 <- namereg$cou[namereg$region=='OtherEUR']; othereu27 <- as.character(othereu27[order(othereu27)])
+restofworld <- namereg$cou[namereg$region=='Rest of the World']; restofworld <- as.character(restofworld[order(restofworld)])
+
+year <- 1995
+## load data for country notes
+if(!'data1995'%in%ls()) {
+    ## data1995 <- read.csv(file.path(path.data, paste0(filename, 1995, '.csv')), header=F, sep='|')
+    data1995 <- read.csv(file.path(path.data, paste0(filename, 1995, '.csv')), header=F, sep='|', skip=1)
+    names(data1995) <- c('indic','year','cou','par','ind','value')
+    data1995$year <- as.numeric(data1995$year)
+    data1995$value <- as.numeric(data1995$value)
+    data1995 <- data1995[data1995$cou%in%namereg$cou & data1995$par%in%union('Total',namereg$cou),]    ## data1995 <- data1995[data1995$cou%in%namereg$cou[namereg$in40==1] & data1995$par%in%union('Total',namereg$cou[namereg$in40==1]),]
+}
+
+year <- 2009
+## load data for country notes
+if(!'data2009'%in%ls()) {
+  data2009 <- read.csv(file.path(path.data, paste0(filename, 2009, '.csv')), header=F, sep='|')
+  names(data2009) <- c('indic','year','cou','par','ind','value')
+  data2009$year <- as.numeric(data2009$year)
+  data2009$value <- as.numeric(data2009$value)
+  data2009 <- data2009[data2009$cou%in%namereg$cou & data2009$par%in%union('Total',namereg$cou),]
+  ## data2009 <- data2009[data2009$cou%in%namereg$cou[namereg$in40==1] & data2009$par%in%union('Total',namereg$cou[namereg$in40==1]),]
+}
+
+cntext <- read.xlsx(file = file.path(path, "text", "CN_custom_text.xlsx"), sheetIndex=1, header=T)
+
+## x='CHN'
+create.report <- function(x
+                          ,
+                          prepend = "indicator_icio_tiva_"
+                          ){
+  ## rnw.file <- paste0(path.temp, prepend, x, ".Rnw")
+  rmd.file <- file.path(path.rmd, paste0(prepend, x, ".Rmd"))
+  md.file <- file.path(path.md, paste0(prepend, x, ".md"))
+  brew(file = file.path(path, "test.brew"), output = rmd.file)
+  ## knit(input=rnw.file, output=paste0(path.temp, prepend, x, ".tex"))
+  knit(input = rmd.file, output = file.path(path.md, paste0(prepend, x, ".md")))
+  ## markdownToHTML(file = md.file, output = file.path(path, paste0(prepend, x, ".html")))
+  ## latex.file <- paste0(path.temp, prepend, x, ".tex")
+  ## texi2pdf(latex.file, clean = TRUE, quiet = TRUE)
+  ## out.file <- paste0(prepend, x, ".pdf")
+  out.file <- paste0(prepend, x, ".md")
+  return(out.file)
+}
+
+## modify scientific notation
+options(scipen=8)
+axis.text.size=12
+legend.text.size=15
+
+coulist <- c("AUT")
+coulist <- sample(STAN.COU[["OECD"]], 5)
+seeds <- as.character(coulist)
+
+results <- sapply(seeds, create.report)
+##
+for (file in list.files(file.path(path, "md"))) {
+  file.copy(from = file.path(path, "md", file), to = file.path(dbpath, "GitHub", "jekyll", "industry", file), overwrite = TRUE)
+}
+##
+system(paste('cp -r', file.path(path, "figures", "indicator_icio_tiva"), file.path(dbpath, "GitHub", "jekyll", "industry", "figures")))
+
+
+#########################
+## include menus
+#########################
+cou.label <- STAN.COUEN[STAN.COUEN$cou%in%coulist,]
+cat(paste0('<li><a href="indicator_icio_tiva_', cou.label[,1], '.html">', cou.label[,2], '</a></li>', '\n'))
+
+
+#########################
+## test code scripts
+#########################
+cat(paste0('source(file.path( path, "code", "', list.files(file.path(path, "code")), '"))\n'))
+source(file.path( path, "code", "figure1.R"))
+source(file.path( path, "code", "figure2b.R"))
+##
+source(file.path( path, "code", "figure3.R")) # Error in Ops.factor(nameind$ind, data3$ind[!data3$ind == "Total"][i]) (from figure3.R#44) : level sets of factors are different
+## source(file.path( path, "code", "figure4.R")) # Error in eval(expr, envir, enclos) (from figure4.R#1) : object 'EXGR_VS_BSCI' not found
+source(file.path( path, "code", "figure5b.R"))
+source(file.path( path, "code", "figure6b.R"))
+source(file.path( path, "code", "figure7.R"))
+source(file.path( path, "code", "figure8.R"))
+source(file.path( path, "code", "figure9b.R"))

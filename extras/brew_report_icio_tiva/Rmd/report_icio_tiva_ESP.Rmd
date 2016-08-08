@@ -1,0 +1,125 @@
+---
+```{r preamble, echo = FALSE}
+cou <<- 'ESP'
+country <- as.character(namereg$country[match(cou, namereg$cou)])
+natnlty <- as.character(namereg$coupron[match(cou, namereg$cou)])
+customtext <- cntext[,colnames(cntext)==cou]
+```
+title: ICIO TiVA ESP
+layout: default
+output: bookdown::html_chapter
+---
+	   
+# Trade in Value-added: `r country`
+
+## EXGRDVA\_EX {#exgrdvaex}
+
+### Domestic value added content of gross exports, `r year`, %
+```{r fig1, fig.path="figures/report_icio_tiva/ESP/", fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+	source(file.path(path, "code", "figure1.R"))
+```
+
+`r country`'s domestic value-added content of its exports is, at `r .perc1`%, `r .rel1` the OECD average in `r year`.
+
+`r if(!is.na(customtext[1])) customtext[1]`
+
+## EXGRDVA {#exgrdva}
+
+### Domestic Value added in gross exports, industry shares, `r year`, %
+```{r fig9, fig.path="figures/report_icio_tiva/ESP/", fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+  source(file.path(path, "code", "figure9b.R"))
+```
+
+`r if(!is.na(customtext[9])) customtext[9]`
+
+## EXGR\_FVASH {#exgrfvash}
+
+### Foreign value-added content of gross exports, by industry, `r year`, %
+```{r fig2, fig.path="figures/report_icio_tiva/ESP/", fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+  ## source(file.path(path, "code", "figure2.R"))
+  source(file.path(path, "code", "figure2b.R"))
+```
+
+The foreign content of its exports is highest in the `r .ind21` industry, where about `r .perc21`% of the value of exports consists of foreign value added.
+The `r .ind22`, `r .ind23` and `r .ind24` industries also have relatively high shares of foreign content (`r .perc24`-`r .perc22`%).
+
+`r if(!is.na(customtext[2])) customtext[2]`
+
+
+## REI {#rei}
+
+### Share of imported intermediate inputs that are exported, by import category, `r year`, %
+```{r fig3, fig.path="figures/report_icio_tiva/ESP/", fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+  source(file.path(path, "code", "figure3.R"))
+```
+  
+The share of intermediate imports that are used in producing exports are highest in the following industries:
+`r .ind3[1]` (`r .perc3[1]`%);
+`r .ind3[2]` (`r .perc3[2]`%);
+`r .ind3[3]` (`r .perc3[3]`%);
+`r .ind3[4]` (`r .perc3[4]`%);
+`r .ind3[5]` (`r .perc3[5]`%) and
+`r .ind3[6]` (`r .perc3[6]`%),
+illustrating the integration of many `r natnlty` industries in global value chains.
+`r .perc3total`% of all intermediate imports are used to produce exports.
+
+`r if(!is.na(customtext[3])) customtext[3]`
+
+
+## EXGR\_VA\_BSCI {#exgrvabsci}
+### Origin of foreign value-added in gross exports, electrical equipment (ISIC Rev. 3 30T33), by region and product group, `r year`, %
+```{r fig4, fig.path="figures/report_icio_tiva/ESP/", fig.height=6, fig.width=10, echo=FALSE, message=FALSE}
+	source(file.path(path, "code", "figure4.R"))
+```
+
+In `r year`,
+`r round(.perc4ind$value[.perc4ind$year==year][1])`% of
+`r country`'s exports in value added terms originated in the
+`r .perc4ind$indlabel[.perc4ind$year==year][1]` sector. The industry is well integrated in global value chains, with significant inputs of intermediate goods and services from `r .perc4reg$srcreg4[.perc4reg$year==year][1]` (`r round(.perc4reg$value[.perc4reg$year==year][1])`% of the value added in gross exports)
+
+`r if(!is.na(customtext[4])) customtext[4]`
+
+
+## FDDVASH {#fddvash}
+
+### Exports and imports, partner shares, in gross and value-added terms, `r year`, % of total
+```{r fig5, fig.path="figures/report_icio_tiva/ESP/", fig.height=4, fig.width=10, echo=FALSE, message=FALSE}
+	source(file.path(path, "code", "figure5b.R"))
+```
+
+Looking at gross flows `r .par55gr[1]` and `r .par55gr[2]` are `r country`'s major trading partners, consuming about `r .share55gr[1]`% and `r .share55gr[2]`% of its exports, respectively.
+In value-added terms, `r .par55va[1]` `r .compare55par[1]` `r country`'s biggest partner, consuming about `r .share55va[1]`% of its exports and `r .par55va[2]` `r .compare55par[2]` it's second biggest partner.
+
+`r if(!is.na(customtext[5])) customtext[5]`
+
+## TSVAFD {#tsvafd}
+
+### Bilateral trade balances, USD million, `r year`
+```{r fig6, fig.path="figures/report_icio_tiva/ESP/", fig.height=4, fig.width=10, echo=FALSE, message=FALSE}
+	source(file.path(path, "code", "figure6b.R"))
+```
+
+`r if(!is.na(customtext[6])) customtext[6]`
+
+## SERV\_VAGR {#servvagr}
+
+### Services content of gross exports, `r year`
+```{r fig7, fig.path="figures/report_icio_tiva/ESP/", fig.height=6, fig.width=10, echo=FALSE, message=FALSE}
+	source(file.path(path, "code", "figure7.R"))
+```
+  
+In value added terms about `r .perc7`% of `r country`'s exports reflect services.
+This is `r .rel7` the (unweighted) OECD average (about `r .avrg7`%).
+
+`r if(!is.na(customtext[7])) customtext[7]`
+
+## SERV\_VAGR (ind) {#servvagrind}
+
+### Services content of gross exports, by industry, `r year`
+```{r fig8, fig.path="figures/report_icio_tiva/ESP/", fig.height=5, fig.width=10, echo=FALSE, message=FALSE}
+	source(file.path(path, "code", "figure8.R"))
+```
+
+`r if(!is.na(customtext[8])) customtext[8]`
+
+The information included in this note is based on the May 2013 release of the Trade in Value-Added (TiVA) database. The data can be accessed from http://www.oecd.org/trade/valueadded. For further information, please contact tiva.contact@oecd.org.

@@ -1,0 +1,380 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    
+    <script src='/www/rMaps/datamaps/js/d3.v3.min.js' type='text/javascript'></script>
+    <script src='/www/rMaps/datamaps/js/topojson.v1.min.js' type='text/javascript'></script>
+    <script src='/www/rMaps/datamaps/js/datamaps.all.min.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 800px;
+      height: 400px;
+    }  
+    </style>
+    
+  </head>
+  <body >
+    
+    <div id = 'chart3a20377039c6' class = 'rChart datamaps'></div>    
+    <script id='popup-template' type='text/x-handlebars-template'>
+    
+</script>
+<script>
+  var chartParams = {
+ "dom": "chart3a20377039c6",
+"width":    800,
+"height":    400,
+"scope": "world",
+"fills": {
+ "(6,88.8]": "#F7FBFF",
+"(88.8,313]": "#C6DBEF",
+"(313,580]": "#6BAED6",
+"(580,2.02e+03]": "#2171B5",
+"(2.02e+03,1.57e+05]": "#08306B" 
+},
+"legend": true,
+"labels": false,
+"data": {
+ "ARG": {
+ "cou": [ "ARG" ],
+"value": [    520 ],
+"fillKey": [ "(313,580]" ] 
+},
+"AUS": {
+ "cou": [ "AUS" ],
+"value": [   2869 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"AUT": {
+ "cou": [ "AUT" ],
+"value": [    333 ],
+"fillKey": [ "(313,580]" ] 
+},
+"BEL": {
+ "cou": [ "BEL" ],
+"value": [    512 ],
+"fillKey": [ "(313,580]" ] 
+},
+"BGR": {
+ "cou": [ "BGR" ],
+"value": [     27 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"BRA": {
+ "cou": [ "BRA" ],
+"value": [   1732 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"BRN": {
+ "cou": [ "BRN" ],
+"value": [     99 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"CAN": {
+ "cou": [ "CAN" ],
+"value": [   1141 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"CHE": {
+ "cou": [ "CHE" ],
+"value": [    485 ],
+"fillKey": [ "(313,580]" ] 
+},
+"CHL": {
+ "cou": [ "CHL" ],
+"value": [    772 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"CHN": {
+ "cou": [ "CHN" ],
+"value": [ 1.5725e+05 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"CYP": {
+ "cou": [ "CYP" ],
+"value": [     28 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"CZE": {
+ "cou": [ "CZE" ],
+"value": [    164 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"DEU": {
+ "cou": [ "DEU" ],
+"value": [   3439 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"DNK": {
+ "cou": [ "DNK" ],
+"value": [    332 ],
+"fillKey": [ "(313,580]" ] 
+},
+"ESP": {
+ "cou": [ "ESP" ],
+"value": [    532 ],
+"fillKey": [ "(313,580]" ] 
+},
+"EST": {
+ "cou": [ "EST" ],
+"value": [     21 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"FIN": {
+ "cou": [ "FIN" ],
+"value": [    298 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"FRA": {
+ "cou": [ "FRA" ],
+"value": [   1418 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"GBR": {
+ "cou": [ "GBR" ],
+"value": [   1413 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"GRC": {
+ "cou": [ "GRC" ],
+"value": [     99 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"HKG": {
+ "cou": [ "HKG" ],
+"value": [   2212 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"HUN": {
+ "cou": [ "HUN" ],
+"value": [    130 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"IDN": {
+ "cou": [ "IDN" ],
+"value": [   1405 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"IND": {
+ "cou": [ "IND" ],
+"value": [   1450 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"IRL": {
+ "cou": [ "IRL" ],
+"value": [    317 ],
+"fillKey": [ "(313,580]" ] 
+},
+"ISL": {
+ "cou": [ "ISL" ],
+"value": [     12 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"ISR": {
+ "cou": [ "ISR" ],
+"value": [    222 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"ITA": {
+ "cou": [ "ITA" ],
+"value": [   1135 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"JPN": {
+ "cou": [ "JPN" ],
+"value": [  47207 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"KHM": {
+ "cou": [ "KHM" ],
+"value": [      6 ],
+"fillKey": [ null ] 
+},
+"KOR": {
+ "cou": [ "KOR" ],
+"value": [  19811 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"LTU": {
+ "cou": [ "LTU" ],
+"value": [     20 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"LUX": {
+ "cou": [ "LUX" ],
+"value": [     81 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"LVA": {
+ "cou": [ "LVA" ],
+"value": [     25 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"MEX": {
+ "cou": [ "MEX" ],
+"value": [    357 ],
+"fillKey": [ "(313,580]" ] 
+},
+"MLT": {
+ "cou": [ "MLT" ],
+"value": [     16 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"MYS": {
+ "cou": [ "MYS" ],
+"value": [   2263 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"NLD": {
+ "cou": [ "NLD" ],
+"value": [    497 ],
+"fillKey": [ "(313,580]" ] 
+},
+"NOR": {
+ "cou": [ "NOR" ],
+"value": [    416 ],
+"fillKey": [ "(313,580]" ] 
+},
+"NZL": {
+ "cou": [ "NZL" ],
+"value": [    157 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"PHL": {
+ "cou": [ "PHL" ],
+"value": [    922 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"POL": {
+ "cou": [ "POL" ],
+"value": [    225 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"PRT": {
+ "cou": [ "PRT" ],
+"value": [    114 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"ROU": {
+ "cou": [ "ROU" ],
+"value": [     72 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"ROW": {
+ "cou": [ "ROW" ],
+"value": [   8186 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"RUS": {
+ "cou": [ "RUS" ],
+"value": [   2709 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"SAU": {
+ "cou": [ "SAU" ],
+"value": [   3608 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"SGP": {
+ "cou": [ "SGP" ],
+"value": [   1327 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"SVK": {
+ "cou": [ "SVK" ],
+"value": [     82 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"SVN": {
+ "cou": [ "SVN" ],
+"value": [     30 ],
+"fillKey": [ "(6,88.8]" ] 
+},
+"SWE": {
+ "cou": [ "SWE" ],
+"value": [    498 ],
+"fillKey": [ "(313,580]" ] 
+},
+"THA": {
+ "cou": [ "THA" ],
+"value": [   1302 ],
+"fillKey": [ "(580,2.02e+03]" ] 
+},
+"TUR": {
+ "cou": [ "TUR" ],
+"value": [    200 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"TWN": {
+ "cou": [ "TWN" ],
+"value": [  11277 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"USA": {
+ "cou": [ "USA" ],
+"value": [   8963 ],
+"fillKey": [ "(2.02e+03,1.57e+05]" ] 
+},
+"VNM": {
+ "cou": [ "VNM" ],
+"value": [    294 ],
+"fillKey": [ "(88.8,313]" ] 
+},
+"ZAF": {
+ "cou": [ "ZAF" ],
+"value": [    439 ],
+"fillKey": [ "(313,580]" ] 
+} 
+},
+"slider": true,
+"id": "chart3a20377039c6" 
+}
+  chartParams.element = document.getElementById('chart3a20377039c6')
+  
+  
+  var mapchart3a20377039c6 = new Datamap(chartParams);
+  
+  
+    
+  // draw a bubble map if specified
+  if (chartParams.bubbles) {
+    var bubbles = chartParams.bubbles
+    mapchart3a20377039c6.bubbles(bubbles)
+  }
+  
+  if (chartParams.labels){
+    mapchart3a20377039c6.labels()
+  }
+  
+  if (chartParams.legend){
+    mapchart3a20377039c6.legend()
+  }
+  
+  setProjection = function( element, options ) {
+    var projection, path;
+ 
+      projection = d3.geo.albersUsa()
+        .scale(element.offsetWidth)
+        .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+ 
+    path = d3.geo.path()
+      .projection( projection );
+ 
+    return {path: path, projection: projection};
+  }
+</script>
+
+<style>
+.datamaps {
+  position: relative;
+}
+</style>
+    
+    <script></script>    
+  </body>
+</html>

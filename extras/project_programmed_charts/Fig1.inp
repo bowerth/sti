@@ -1,0 +1,82 @@
+--*********************************************************************************************************
+--* Chap3 - Sylvie Foucher sept 2015     
+--
+-- source OECD (2015), Climate Change Risks and Adaptation: Linking Policy and Economics.
+-- données envoyées par mail par Mickael Mullan le 8/09/2015 et
+-- stockées dans K:\Users\Foucher_S\EO98-chap3\EM DAT - World and OECD damage loss data (real).xlsx
+--******************************************************************************************************
+--******************************************************************************************************
+Block
+  Close all;Delete work'?;Date *;clear output; clear message; clear info;glue dot
+  Load <channel warning none> "K:\ECO\Graphs\ECO_Charts"
+  Load <channel warning none> "K:\ECO\Utilities\NB_Round" ; $NB_Round
+  Load <channel warning none> "k:\fame\sutil\prnlink"
+  
+  --************
+  --Parameters  
+  --************
+  -/Chap       = "3."
+  -/Figure     = "2"
+  
+  
+  --************
+  --Data        
+  --************
+  Series < date 1980 to 2014> Work'OECD : precision by date = 12.90129361,21.273988,10.33938354,21.67808544,9.392619231,11.01340393,9.490291679,15.84897627,3.023731672,23.88744947,48.12335758,31.86922261,62.35517183,37.5462934,18.95917555,34.88235308,13.73128485,23.86200886,36.64017465,62.02714975,40.2529253,13.18520119,49.41855581,50.9015046,91.20634939,210.9912877,12.60063374,40.09366316,69.97748454,25.52112245,41.75467836,72.02301188,111.8239292,58.44305108,18.612
+  Series < date 1980 to 2014> Work'world: precision by date = 16.96248195,28.2890892,20.19176996,33.09828164,18.25637388,20.64664074,21.027167,24.20474068,22.55473561,34.04577563,63.31793079,56.20298357,78.12858842,71.47289734,57.38260251,74.87019476,58.08031228,47.35396099,109.8569955,92.30579588,57.86491342,24.821331,61.62474916,75.00109074,116.2071783,241.7000946,34.79022125,66.33173939,114.4715276,44.01512957,89.98704216,140.3076011,141.9623555,112.4520671,73.044599
+  Open <ac read> file("K:\ECO\Utilities\Eco_Economic_Areas.db") as Eco_Economic_Areas
+  
+
+  --************
+  --GRAPH ¹ ² ³ 
+  --************
+  Loop for %format in {P1MS}
+  Loop for %lang in {E} -- ,F}
+    -/%myfilepub="Chap3_Fig"+string(Figure)+"_" + name(%lang)
+    If {%lang} subset {E}
+      -/pTitle1="Figure "+string(Chap)+string(Figure)+". Economic losses from climatological, meteorological and hydrological disasters"
+      -/pTitle2=" "
+      -/pcaption1="Source: OECD (2015), Climate Change Risks and Adaptation: Linking Policy and Economics."
+      
+      -/desc1      = oecd.name.e
+      -/desc2      = wld.name.e
+          -/Axis_Label = "2014 Billion USD"
+    Else
+      -/pTitle1="Graphique "+string(Chap)+string(Figure)+". Pertes économiques dues aux catastrophes climatologiques, métérologiques et hydrologiques"
+      -/pcaption2="Source : OECD (2015), Climate Change Risks and Adaptation: Linking Policy and Economics."
+      
+      -/desc1      = oecd.name.f
+      -/desc2      = wld.name.f
+       -/Axis_Label = "Milliards USD, 2014"
+    End If
+    
+   
+    
+    $Chart_Init "1_3p",*,%format
+    Glue dot
+    Page Division Row 1, column 1
+    Legend on
+    Legend Division Row auto, column 1
+    Tick label right on
+    Plot missing connect
+    Plot #1 desc desc1
+    Plot #2 desc desc2
+   
+   -- Tick left  numeric linear (2 to 6 step 0.5)
+   -- Tick right numeric linear (2 to 6 step 0.5)
+    Axis label text left #1 Axis_Label,#2 " "
+    Axis label text right #1 Axis_Label,#2 " "
+    Legend area move at, X 0.25,Y 1
+
+    Graph
+      -/nl.1={OECD,World}
+      $Chart_data nl.1
+    End Graph
+
+    $Chart_Terminal "image_no"
+    
+  End Loop
+  End Loop
+  Close All
+End Block
+

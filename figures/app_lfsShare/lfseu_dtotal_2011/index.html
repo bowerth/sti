@@ -1,0 +1,1365 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    <link rel='stylesheet' href='/www/rCharts/nvd3/css/nv.d3.css'>
+    <link rel='stylesheet' href='/www/rCharts/nvd3/css/rNVD3.css'>
+    
+    <script src='/www/rCharts/nvd3/js/jquery-1.8.2.min.js' type='text/javascript'></script>
+    <script src='/www/rCharts/nvd3/js/d3.v3.min.js' type='text/javascript'></script>
+    <script src='/www/rCharts/nvd3/js/nv.d3.min-new.js' type='text/javascript'></script>
+    <script src='/www/rCharts/nvd3/js/fisheye.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 800px;
+      height: 600px;
+    }  
+    </style>
+    
+  </head>
+  <body >
+    
+    <div id = 'nvd3charts_lfsShare' class = 'rChart nvd3'></div>    
+    <script type='text/javascript'>
+ $(document).ready(function(){
+      drawnvd3charts_lfsShare()
+    });
+    function drawnvd3charts_lfsShare(){  
+      var opts = {
+ "dom": "nvd3charts_lfsShare",
+"width":    800,
+"height":    600,
+"x": "cou",
+"y": "value",
+"group": "ocu",
+"type": "multiBarChart",
+"id": "nvd3charts_lfsShare" 
+},
+        data = [
+ {
+ "cou": [ "AUT" ],
+"ocu": "OC0",
+"value": 0.002415659990504 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC1",
+"value": 0.04728458997655 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC2",
+"value": 0.1367154961546 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC3",
+"value": 0.1859725669428 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC4",
+"value": 0.1101297703015 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC5",
+"value": 0.1831455799672 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC6",
+"value": 0.05675763515507 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC7",
+"value": 0.1374152490598 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC8",
+"value": 0.05577482815915 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OC9",
+"value": 0.08438862429272 
+},
+{
+ "cou": [ "AUT" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC0",
+"value": 0.00722722387676 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC1",
+"value": 0.05712687875198 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC2",
+"value": 0.2143386772723 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC3",
+"value": 0.1522520306197 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC4",
+"value": 0.1382769026663 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC5",
+"value": 0.1456729618347 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC6",
+"value": 0.0137828018608 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC7",
+"value": 0.1033857244061 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC8",
+"value": 0.06394430763807 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OC9",
+"value": 0.1039924910733 
+},
+{
+ "cou": [ "BEL" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC0",
+"value": 0.003342114610036 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC1",
+"value": 0.04320842672733 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC2",
+"value": 0.1252956221875 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC3",
+"value": 0.1922732007732 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC4",
+"value": 0.09292607521678 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC5",
+"value": 0.1559446819163 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC6",
+"value": 0.01382931744535 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC7",
+"value": 0.1801576052866 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC8",
+"value": 0.140572290954 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OC9",
+"value": 0.05245066488289 
+},
+{
+ "cou": [ "CZE" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC0",
+"value": 0.004560801613369 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC1",
+"value": 0.04819208862932 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC2",
+"value": 0.1721375021223 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC3",
+"value": 0.2031521838706 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC4",
+"value": 0.1216863046022 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC5",
+"value": 0.153321577879 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC6",
+"value": 0.01507008139354 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC7",
+"value": 0.1248142684111 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC8",
+"value": 0.0623362177308 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OC9",
+"value": 0.08540868018117 
+},
+{
+ "cou": [ "DEU" ],
+"ocu": "OCNA",
+"value": 0.009320293566653 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC0",
+"value": 0.003814534852725 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC1",
+"value": 0.0183040196317 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC2",
+"value": 0.2573703222274 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC3",
+"value": 0.1575078904241 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC4",
+"value": 0.08462639683748 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC5",
+"value": 0.2137200176912 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC6",
+"value": 0.02141031993307 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC7",
+"value": 0.08710290376408 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC8",
+"value": 0.05039901746953 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OC9",
+"value": 0.1057445771687 
+},
+{
+ "cou": [ "DNK" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC0",
+"value": 0.004773354070809 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC1",
+"value": 0.07893935635541 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC2",
+"value": 0.1980215347077 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC3",
+"value": 0.1042359083805 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC4",
+"value": 0.04601643635477 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC5",
+"value": 0.1561359244006 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC6",
+"value": 0.02368275375199 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC7",
+"value": 0.1600273064106 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC8",
+"value": 0.1463566660686 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OC9",
+"value": 0.08181075949905 
+},
+{
+ "cou": [ "EST" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC0",
+"value": 0.005664466503754 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC1",
+"value": 0.04729520003756 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC2",
+"value": 0.1605989831044 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC3",
+"value": 0.1055303321869 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC4",
+"value": 0.1008949626576 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC5",
+"value": 0.2193550106684 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC6",
+"value": 0.026069433809 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC7",
+"value": 0.1227850236711 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC8",
+"value": 0.07796189837098 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OC9",
+"value": 0.1338446889903 
+},
+{
+ "cou": [ "ESP" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC0",
+"value": 0.004094739377465 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC1",
+"value": 0.04533160742678 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC2",
+"value": 0.2154783389719 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC3",
+"value": 0.1650269426305 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC4",
+"value": 0.06271769762094 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC5",
+"value": 0.2057320347417 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC6",
+"value": 0.04001730589854 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC7",
+"value": 0.1151524582497 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC8",
+"value": 0.08255643140933 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OC9",
+"value": 0.06228803871483 
+},
+{
+ "cou": [ "FIN" ],
+"ocu": "OCNA",
+"value": 0.00160440495832 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC0",
+"value": 0.01089813103684 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC1",
+"value": 0.07402528653794 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC2",
+"value": 0.166708197534 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC3",
+"value": 0.2006417245307 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC4",
+"value": 0.09532943938959 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC5",
+"value": 0.1720754068048 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC6",
+"value": 0.02914865815861 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC7",
+"value": 0.08257002290572 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC8",
+"value": 0.06879261764238 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OC9",
+"value": 0.09981051545934 
+},
+{
+ "cou": [ "FRA" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC0",
+"value": 0.01639565203668 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC1",
+"value": 0.03885033314533 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC2",
+"value":  0.17714952957 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC3",
+"value": 0.07433337869998 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC4",
+"value": 0.1010663143154 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC5",
+"value": 0.2173295724398 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC6",
+"value": 0.1223967385924 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC7",
+"value": 0.1193493970882 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC8",
+"value": 0.06167890066332 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OC9",
+"value": 0.0714501834489 
+},
+{
+ "cou": [ "GRC" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC0",
+"value": 0.004936100578087 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC1",
+"value": 0.05540017237846 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC2",
+"value": 0.1572745228767 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC3",
+"value": 0.1380724587564 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC4",
+"value": 0.07721433675532 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC5",
+"value": 0.160602271437 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC6",
+"value": 0.02869532260474 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC7",
+"value": 0.1530571387498 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC8",
+"value": 0.1381705102303 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OC9",
+"value": 0.08657716563309 
+},
+{
+ "cou": [ "HUN" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC0",
+"value": 0.004590239264986 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC1",
+"value": 0.07060321464259 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC2",
+"value": 0.2211851416943 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC3",
+"value": 0.09920630829783 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC4",
+"value": 0.1040023850109 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC5",
+"value": 0.2109438411186 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC6",
+"value": 0.04221249057454 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC7",
+"value": 0.09626812915149 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC8",
+"value": 0.05885955297384 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OC9",
+"value": 0.08856804706555 
+},
+{
+ "cou": [ "IRL" ],
+"ocu": "OCNA",
+"value": 0.003560650205421 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC0",
+"value":              0 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC1",
+"value": 0.06185480366102 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC2",
+"value": 0.2590257226837 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC3",
+"value": 0.1472928537444 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC4",
+"value": 0.0256790968874 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC5",
+"value": 0.2361649150852 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC6",
+"value": 0.05950188986336 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC7",
+"value": 0.1293375285486 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC8",
+"value": 0.03961057519464 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OC9",
+"value": 0.04153261433174 
+},
+{
+ "cou": [ "ISL" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC0",
+"value": 0.01097200241939 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC1",
+"value": 0.03611033287178 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC2",
+"value": 0.1304975501343 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC3",
+"value": 0.1717337888099 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC4",
+"value": 0.1224612420221 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC5",
+"value": 0.1640788549449 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC6",
+"value": 0.02605091342134 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC7",
+"value": 0.1597532667921 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC8",
+"value": 0.07338416183556 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OC9",
+"value": 0.1049578867487 
+},
+{
+ "cou": [ "ITA" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC0",
+"value": 0.00258059622367 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC1",
+"value": 0.02021725911431 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC2",
+"value": 0.3897423319612 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC3",
+"value": 0.1788533442593 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC4",
+"value": 0.07678357898321 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC5",
+"value": 0.1133268478911 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC6",
+"value": 0.02080082734177 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC7",
+"value": 0.08189001692031 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC8",
+"value": 0.0414785650089 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OC9",
+"value": 0.07432663229625 
+},
+{
+ "cou": [ "LUX" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC0",
+"value": 0.004363283471984 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC1",
+"value": 0.0662360837066 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC2",
+"value": 0.2253324619584 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC3",
+"value": 0.162063108163 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC4",
+"value": 0.09962127479005 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC5",
+"value": 0.1983268225828 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC6",
+"value": 0.02753939972489 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC7",
+"value": 0.0843231105511 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC8",
+"value": 0.04074660194956 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OC9",
+"value": 0.08099542718966 
+},
+{
+ "cou": [ "NLD" ],
+"ocu": "OCNA",
+"value": 0.0104524259119 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC0",
+"value": 0.003111031289248 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC1",
+"value": 0.06168177653943 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC2",
+"value":    0.224525858 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC3",
+"value": 0.1628272260777 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC4",
+"value": 0.0649421717225 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC5",
+"value": 0.2274481722678 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC6",
+"value": 0.0212986031253 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC7",
+"value": 0.09422338717856 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC8",
+"value": 0.0660296122769 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OC9",
+"value": 0.03899472429679 
+},
+{
+ "cou": [ "NOR" ],
+"ocu": "OCNA",
+"value": 0.03491743722576 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC0",
+"value": 0.005493938816123 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC1",
+"value": 0.05800942376529 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC2",
+"value": 0.1720742571828 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC3",
+"value": 0.1080031669169 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC4",
+"value": 0.06477151268185 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC5",
+"value": 0.1460702042627 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC6",
+"value": 0.1197648611279 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC7",
+"value": 0.1550503818477 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC8",
+"value": 0.1020037424004 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OC9",
+"value": 0.06859093469404 
+},
+{
+ "cou": [ "POL" ],
+"ocu": "OCNA",
+"value": 0.0001675763042904 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC0",
+"value": 0.006997691152121 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC1",
+"value": 0.05291858125283 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC2",
+"value": 0.139504589117 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC3",
+"value": 0.07614001181856 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC4",
+"value": 0.07778661395154 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC5",
+"value": 0.1716861398883 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC6",
+"value": 0.1041388918793 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC7",
+"value": 0.1642629105184 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC8",
+"value": 0.08481734064625 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OC9",
+"value": 0.1217472297756 
+},
+{
+ "cou": [ "PRT" ],
+"ocu": "OCNA",
+"value":              0 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC0",
+"value": 0.00255596528356 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC1",
+"value": 0.05107874595285 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC2",
+"value": 0.2522408618501 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC3",
+"value": 0.1626905313185 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC4",
+"value": 0.05885803494166 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC5",
+"value": 0.2127254197687 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC6",
+"value": 0.01787050791971 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC7",
+"value": 0.1073309345606 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC8",
+"value": 0.08069375406136 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OC9",
+"value": 0.05035616753454 
+},
+{
+ "cou": [ "SWE" ],
+"ocu": "OCNA",
+"value": 0.003599076808366 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC0",
+"value": 0.006799814403522 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC1",
+"value": 0.07206231508833 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC2",
+"value": 0.1978222154518 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC3",
+"value": 0.1342264571387 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC4",
+"value": 0.07047019293796 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC5",
+"value": 0.1389571146596 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC6",
+"value": 0.06006758180008 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC7",
+"value": 0.1417244903746 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC8",
+"value": 0.09331681059697 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OC9",
+"value": 0.08293079604182 
+},
+{
+ "cou": [ "SVN" ],
+"ocu": "OCNA",
+"value": 0.001622211506681 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC0",
+"value": 0.003714418745497 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC1",
+"value": 0.04932842883828 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC2",
+"value": 0.1126450494094 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC3",
+"value": 0.1871107391857 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC4",
+"value": 0.06455191732262 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC5",
+"value": 0.1704326388508 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC6",
+"value": 0.007403980627929 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC7",
+"value": 0.1776601423437 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC8",
+"value": 0.1394126172989 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OC9",
+"value": 0.08763032344013 
+},
+{
+ "cou": [ "SVK" ],
+"ocu": "OCNA",
+"value": 0.0001097439370388 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC0",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC1",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC2",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC3",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC4",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC5",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC6",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC7",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC8",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OC9",
+"value":              0 
+},
+{
+ "cou": [ "TUR" ],
+"ocu": "OCNA",
+"value":              1 
+} 
+]
+  
+      if(!(opts.type==="pieChart" || opts.type==="sparklinePlus" || opts.type==="bulletChart")) {
+        var data = d3.nest()
+          .key(function(d){
+            //return opts.group === undefined ? 'main' : d[opts.group]
+            //instead of main would think a better default is opts.x
+            return opts.group === undefined ? opts.y : d[opts.group];
+          })
+          .entries(data);
+      }
+      
+      if (opts.disabled != undefined){
+        data.map(function(d, i){
+          d.disabled = opts.disabled[i]
+        })
+      }
+      
+      nv.addGraph(function() {
+        var chart = nv.models[opts.type]()
+          .width(opts.width)
+          .height(opts.height)
+          
+        if (opts.type != "bulletChart"){
+          chart
+            .x(function(d) { return d[opts.x] })
+            .y(function(d) { return d[opts.y] })
+        }
+          
+         
+        chart
+  .reduceXTicks(false)
+  .stacked(true)
+          
+        chart.xAxis
+  .ticks([ "AUT", "BEL", "CZE", "DEU", "DNK", "EST", "ESP", "FIN", "FRA", "GRC", "HUN", "IRL", "ISL", "ITA", "LUX", "NLD", "NOR", "POL", "PRT", "SWE", "SVN", "SVK", "TUR" ])
+  .rotateLabels(     0)
+
+        
+        
+        chart.yAxis
+  .tickFormat(function(x) { return (x).toFixed(2) })
+      
+       d3.select("#" + opts.id)
+        .append('svg')
+        .datum(data)
+        .transition().duration(500)
+        .call(chart);
+
+       nv.utils.windowResize(chart.update);
+       return chart;
+      });
+    };
+</script>
+    
+    <script></script>    
+  </body>
+</html>

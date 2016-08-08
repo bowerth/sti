@@ -1,0 +1,55 @@
+data4 <- EXGR_VA_BSCI_ind
+names(data4) <- tolower(names(data4))
+## names(data4) <- sub("value", "share", names(data4)) # for data from OECD.Stat
+data4 <- data4[data4$cou==cou & !data4$srcindgrp1=='Total',]
+data4 <- merge(data4, nameind, by.x='srcindgrp1', by.y="ind")
+industry_wrap <- NULL
+for(i in seq(along=nameind$industry)) industry_wrap[i] <- sub('_', '\n', nameind$industry[i])
+data4$industry <- factor(data4$industry, levels=nameind$industry[order(nameind$ind)], labels=industry_wrap)
+
+## ## cat(paste0(unique(EXGR_VA_BSCI$srcreg4), '\n'))
+## ## "ASEAN8", "EU15", "EU27", "E_ASIA", "NAFTA", "OECD", "Z_ASIA", "Z_EUR", "Z_OTH", "Z_SAM"
+## data4 <- data4[data4$srcreg4%in%c("ASEAN8", "EU27", "E_ASIA", "NAFTA", "Z_OTH", "Z_SAM"),]
+
+regions <- levels(data4$srcreg4)
+## regions <- sub('Asia','S.E.Asia & E.Asia',regions)
+## regions <- sub('Europe','EU27',regions)
+## regions <- sub('NorthAmerica','North America',regions)
+## regions <- sub('RestofTheWorld','Rest of the World',regions)
+## regions <- sub('SouthAmerica','South America',regions)
+
+f4 <- qplot(data = data4,
+            x = as.factor(year),
+            y = share,
+            fill = srcreg4,
+            order = srcreg4,
+            position = "stack",
+            facets = . ~ industry,
+            geom = "bar",
+            stat = "identity", width=0.4) +
+    scale_fill_brewer(guide = guide_legend(keyheight=.2),
+                      palette = "Set1",
+                      name = ""
+                      ,
+                      labels = regions
+                      ) +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.x = element_text(angle=90, hjust=1, vjust=1.1, size=axis.text.size),
+          axis.text.y = element_text(size=axis.text.size),
+          axis.ticks=element_line(linetype=0),
+          strip.text.x = element_text(size = 8),
+          legend.position="top",
+          legend.text = element_text(size=legend.text.size))
+print(f4)
+
+.perc4ind <- dcast(data = data4, formula = srcindgrp1 ~ year, value.var = 'share', fun.aggregate=sum)
+.perc4ind <- melt(.perc4ind, id.vars='srcindgrp1', variable.name='year')
+.perc4ind <- merge(.perc4ind, nameind[,colnames(nameind)%in%c('ind','indlabel')], by.x='srcindgrp1', by.y='ind')
+.perc4ind <- .perc4ind[order(-.perc4ind$value),]
+
+.perc4reg <- dcast(data = data4, formula = srcreg4 ~ year, value.var = 'share', fun.aggregate=sum)
+.perc4reg <- melt(.perc4reg, id.vars='srcreg4', variable.name='year')
+.perc4reg$srcreg4 <- sub('East and S.E. Asia','East and South East Asia',.perc4reg$srcreg4)
+.perc4reg <- .perc4reg[order(-.perc4reg$value),]
+

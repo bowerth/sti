@@ -1,0 +1,130 @@
+---
+title: "STD ANA"
+runtime: shiny
+output: html_document
+---
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+## rmarkdown::run(file.path(dbpath, "GitHub", "jekyll", "industry", "rmarkdown", "stdanaviz", "index.Rmd"))
+## C:\Temp\Dropbox\2015sut-io\1_datasources\10_IEA\CO2\Rdata\DATA.co2inttotal.Rdata
+## https://www.dropbox.com/s/2bikm2x5tjfv9jx/DATA.co2inttotal.Rdata?dl=0
+
+## source(file.path(dbpath, "GitHub", "jekyll", "industry", "rmarkdown", "stdanaviz", "input.R"))
+
+library(shiny)
+library(dplyr)
+library(tidyr)
+library(threejs)
+
+library(stanData)
+library(stan)
+
+data(STDSNAi4)
+data(stanDim)
+
+## extract data from OECD.Stat using R functions
+## stanData/data-raw/package_STANNAi4.R (calls stan/R/packageData.R)
+## data stored in rda format at stanData/data/STDSNAi4.rda
+DATA.STDSNAi4$var <- factor(DATA.STDSNAi4$var, levels = STAN.VAR[["ALL"]][STAN.VAR[["ALL"]] %in% unique(DATA.STDSNAi4$var)])
+DATA.STDSNAi4$ind <- factor(DATA.STDSNAi4$ind, levels = STANi4.IND[["PUB"]][STANi4.IND[["PUB"]] %in% unique(DATA.STDSNAi4$ind)])
+
+twitterblue <- rgb(red = 66, green = 139, blue = 202, maxColorValue = 255)
+colors <- colorRampPalette(c("grey20", twitterblue))(2)
+
+
+shinyApp(
+
+  ui = fluidPage(
+
+      ## inputPanel(
+          selectInput(
+              ## "cou", "Country (vertical):",
+              "cou", "Country:",
+              choices = unique(as.character(DATA.STDSNAi4$cou)),
+              selected = c("CHL"),
+              multiple = FALSE
+          )
+
+          ## ,
+          ##  selectInput("par", "Partner (horizontal):",
+          ##              choices = unique(data_df$par),
+          ##              selected = c("BEL", "CAN"),
+          ##              multiple = TRUE
+          ##              )
+          ## ,
+          ##  selectInput("var", "Variable (colour):",
+          ##              choices = c("FD_CO2", "PROD_CO2"), unique(data_df$var),
+          ##              selected = c("FD_CO2", "PROD_CO2"),
+          ##              multiple = TRUE
+          ##              )
+
+  ## )
+
+    ## ,
+      ##   list(
+      ##       shiny::p("List:", a(href = "http://www.oecd.org/sti/ind/ICIO2015_Industries_Items.pdf", "ICIO 2015 Industry Items"))
+      ##   )
+     ,
+      scatterplotThreeOutput("scatterplot", height = "750px")
+  ),
+
+  server = function(input, output) {
+
+output$scatterplot <- renderScatterplotThree({
+
+      ## x <-
+      ##     DATA.STDSNAi4 %>%
+      ##         filter(cou==input$cou) %>%
+      ##             mutate(var = as.numeric(var),
+      ##                    ind = as.numeric(ind),
+      ##                    year = year - 1970
+      ##                    ) %>%
+      ##                        filter(!is.na(ind)) %>%
+      ##                        mutate(ind_ = year,
+      ##                               year_ = ind) %>%
+      ##                                   select(var, ind_, year_)
+
+      x <-
+          DATA.STDSNAi4 %>%
+              filter(cou==input$cou) %>%
+                  mutate(
+                      label = paste(var, ind, year, paste0("value: ", round(value)), sep = ", "),
+                      var = as.numeric(var),
+                      ind = as.numeric(ind),
+                      year = year - 1970
+                  )
+
+      x_labels <- x$label
+
+      x <-
+          x %>%
+              filter(!is.na(ind)) %>%
+                  mutate(ind_ = year,
+                         year_ = ind) %>%
+                             select(var, ind_, year_)
+
+      ## ## x_labels <- rep("label", length(unlist(x)))
+      ## x_labels <- seq(1, length(unlist(x)))
+      ## ## levels(DATA.STDSNAi4$var)[unique(x$var)]
+      ## (max(x$var) - min(x$var) + 1) * (max(x$ind_) - min(x$ind_) + 1) * (max(x$year_) - min(x$year_) + 1)
+
+      ## h(x)
+      scatterplot3js(x, size = .5, grid = FALSE,
+                     num.ticks = c(2, 2, 2)
+                     ,
+                     labels = x_labels
+                    ,
+                     label.margin = "70px"
+                     ) # color = "#0000FF")
+
+      ## ## add labels
+      ## ?scatterplot3js
+
+    })
+
+  },
+
+  options = list(height = 900) # 640 w/o inputPanel
+)
+```

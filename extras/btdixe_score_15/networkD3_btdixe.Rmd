@@ -1,0 +1,156 @@
+---
+# title: "BTDIxE Chord"
+author: "Bo Werth"
+# date: 2015-08-13
+date: "`r Sys.Date()`"
+# output:
+#   rmarkdown::html_vignette:
+#     self_contained: false
+#     lib_dir: libs
+output:
+  rmarkdown::html_fragment:
+    self_contained: false
+    lib_dir: libs
+    fig_width: 8
+    fig_height: 4.5
+# vignette: >
+#   %\VignetteIndexEntry{Create Network}
+#   %\VignetteEngine{knitr::rmarkdown}
+#   %\usepackage[utf8]{inputenc}
+---
+
+<!-- # BTDIxE Chord -->
+
+```{r setup, eval=TRUE, echo=FALSE}
+
+path_project <- file.path(dbpath, "GitHub", "jekyll", "industry", "extras", "btdixe_score_15")
+
+## rmarkdown::render(file.path(dbpath, "GitHub", "jekyll", "industry", "extras", "btdixe_score_15", "networkD3_btdixe.Rmd"))
+## file.copy(from = file.path(dbpath, "GitHub", "jekyll", "industry", "extras", "btdixe_score_15", "networkD3_btdixe.html"), to = file.path(dbpath, "GitHub", "jekyll", "industry", "_includes", "rmarkdown_fragment", "networkD3_btdixe.html"), overwrite=TRUE)
+## browseURL(file.path("file:/", Sys.getenv("HOME"), "Dropbox", "GitHub", "networkD3", "vignettes", "createNetwork.html"))
+
+```
+
+<!-- ## Examples -->
+
+```{r prepare, eval = TRUE, echo = FALSE}
+
+require(networkD3)
+require(rjson)
+
+```
+
+```{r test, eval = FALSE, echo = FALSE}
+
+## devtools::install_github("alexcb/rjson", subdir = "rjson")
+## ## devtools::install(file.path(dbpath, "GitHub", "rjson", "rjson"))
+## test proper functioning of rjson "simplify":
+## line 12: "flare.animate.Easing": only one import, brackets dropped
+## "name":"flare.animate.Easing","size":17010,"imports":["flare.animate.Transition
+ui.icionet.FlareImports <- file.path(dbpath, "GitHub", "networkD3", "data", "readme-flare-imports.json")
+ui.icionet.FlareImports <- rjson::fromJSON(file = ui.icionet.FlareImports, simplify = FALSE)
+ui.icionet.FlareImports[11:12] # only one import entry
+ui.icionet.FlareImports.json <- rjson::toJSON(x = ui.icionet.FlareImports)
+## ?rjson::toJSON
+start <- 2482
+cat('\n', substr(ui.icionet.FlareImports.json, start, (start + 78)), '\n\n')
+
+```
+
+### 2014
+
+```{r chord, eval = TRUE, echo = FALSE}
+
+## requirements:
+##   - rows of data.table equal to rows and columns of data.matrix
+##   - no missing values in data.matrix - set to zero
+
+## improvement: separate functions for loading two separate datasets (2000, 2014)
+
+data_matrix <- read.csv(file = file.path(path_project, "data", "bilat2014.csv"), header = TRUE, stringsAsFactors = FALSE)
+data_matrix[is.na(data_matrix)] <- 0
+cou_row <- data_matrix[, 1]
+## cou_col <- data_matrix[1, ]
+cou_col <- names(data_matrix)
+cou_all <- union(cou_row, cou_col)
+cou_all <- cou_all[!cou_all=="X"]
+
+rownames(data_matrix) <- cou_row
+data_matrix <- data_matrix[, -1]
+data_matrix <- as.matrix(data_matrix)
+
+add_cou_col <- setdiff(cou_all, cou_col)
+add_cou_row <- setdiff(cou_all, cou_row)
+
+data_matrix_add_col <- matrix(data = 0, nrow = length(cou_row), ncol = length(add_cou_col))
+## dim(data_matrix_add_col)
+colnames(data_matrix_add_col) <- add_cou_col
+
+data_matrix_add_row <- matrix(data = 0, nrow = length(add_cou_row), ncol = length(cou_all))
+## dim(data_matrix_add_row)
+rownames(data_matrix_add_row) <- add_cou_row
+
+data_matrix_sym <- cbind(data_matrix, data_matrix_add_col)
+data_matrix_sym <- rbind(data_matrix_sym, data_matrix_add_row)
+## dim(data_matrix_sym)
+
+
+
+data_table <- read.csv(file = file.path(path_project, "list", "coutryorderchordchart.csv"))
+## h(data_table)
+## h(data_table.example)
+## nrow(data_table)
+
+## theme colors
+blue = rgb(red = 0, green = 32, blue = 96, maxColorValue = 255)
+orange = rgb(red = 245, green = 130, blue = 33,  maxColorValue = 255)
+green = rgb(red = 73, green = 185, blue = 88, maxColorValue = 255)
+purple = rgb(red = 139, green = 115, blue = 179, maxColorValue = 255)
+grey = rgb(red = 190, green = 190, blue = 190, maxColorValue = 255)
+## ?rgb
+## col2rgb("grey")
+
+color.excel <-
+list(blue = blue,
+     red = orange, # this is dark red
+     green = green,
+     purple = purple, # call yellow orange
+     ## grey = "grey"
+     grey = grey
+     )
+
+data_table$farben <- as.character(data_table$farben)
+for (f in seq(along = data_table$farben)) {
+  data_table$farben[f] <- color.excel[[data_table$farben[f]]]
+}
+farben <- c(as.character(data_table$farben))
+names(farben) <- as.character(data_table$cou)
+
+## nrow(data_table)
+data_table <- subset(data_table, cou %in% cou_all)
+## data_table$cou <- factor(data_table$cou, levels = cou_all)
+## data_table <- data_table[order(data_table$cou),]
+## h(data_table)
+cou_order <- as.character(data_table$cou)
+
+names(data_table) <- sub("cou", "name", names(data_table))
+names(data_table) <- sub("farben", "color", names(data_table))
+
+
+## re-order data matrix according to data table
+## data_matrix_sym <- data_matrix_sym[cou_all, cou_all]
+data_matrix_sym <- data_matrix_sym[cou_order, cou_order]
+## dimnames(data_matrix_sym)
+
+rownames(data_matrix_sym) <- NULL
+colnames(data_matrix_sym) <- NULL
+
+## View(data_table)
+## View(data_matrix_sym)
+
+networkD3::chordNetwork(matrix = t(data_matrix_sym),
+                        df = data_table,
+                        width = 650,
+                        height = 650)
+
+```

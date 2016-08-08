@@ -1,0 +1,94 @@
+---
+title: "Procrustes"
+runtime: shiny
+output: html_document
+---
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+## rmarkdown::run(file.path(dbpath, "GitHub", "jekyll", "industry", "rmarkdown", "procrustes", "index.Rmd"))
+## C:\Temp\Dropbox\2015sut-io\1_datasources\10_IEA\CO2\Rdata\DATA.co2inttotal.Rdata
+## https://www.dropbox.com/s/2bikm2x5tjfv9jx/DATA.co2inttotal.Rdata?dl=0
+
+## source(file.path(dbpath, "GitHub", "jekyll", "industry", "rmarkdown", "procrustes", "input.R"))
+
+library(shiny)
+# library(dplyr)
+# library(tidyr)
+library(threejs)
+
+## twitterblue <- rgb(red = 66, green = 139, blue = 202, maxColorValue = 255)
+## colors <- colorRampPalette(c("grey20", twitterblue))(2)
+
+## setwd(file.path(dbpath, "GitHub", "jekyll", "industry", "rmarkdown", "procrustes"))
+data_map <- read.table(file.path("data", "NatureBiotechnology_MAP_v1.txt"), sep = "\t", header = TRUE)
+
+names(data_map) <- tolower(names(data_map))
+
+colors <- c("green", "blue", "red", "yellow")
+
+x <- subset(data_map, select = c("x", "y", "score.avg..cit..impact."))
+names(x) <- c("x", "score.avg..cit..impact.", "y")
+
+
+shinyApp(
+
+  ui = fluidPage(
+
+    ## x = x, y = y, z = score<Avg. cit. impact>; color = cluster, radius = weight<Occurrences>; 
+    ## unused: id, label, weight<Co-Occurrences>, score<Avg. pub. year>
+
+      ## inputPanel(
+          # selectInput(
+          #     ## "cou", "Country (vertical):",
+          #     "cou", "Country:",
+          #     choices = unique(as.character(DATA.STDSNAi4$cou)),
+          #     selected = c("CHL"),
+          #     multiple = FALSE
+          # )
+
+          ## ,
+          ##  selectInput("par", "Partner (horizontal):",
+          ##              choices = unique(data_df$par),
+          ##              selected = c("BEL", "CAN"),
+          ##              multiple = TRUE
+          ##              )
+          ## ,
+          ##  selectInput("var", "Variable (colour):",
+          ##              choices = c("FD_CO2", "PROD_CO2"), unique(data_df$var),
+          ##              selected = c("FD_CO2", "PROD_CO2"),
+          ##              multiple = TRUE
+          ##              )
+    # }
+
+  ## )
+
+    ## ,
+      ##   list(
+      ##       shiny::p("List:", a(href = "http://www.oecd.org/sti/ind/ICIO2015_Industries_Items.pdf", "ICIO 2015 Industry Items"))
+      ##   )
+     # ,
+      scatterplotThreeOutput("scatterplot", height = "750px")
+  ),
+
+  server = function(input, output) {
+
+output$scatterplot <- renderScatterplotThree({
+
+threejs::scatterplot3js(
+  x,
+  size = log(data_map$weight.occurrences.)/2, 
+  color = colors[data_map$cluster]
+  ,
+  labels = as.character(data_map$label),
+  renderer = "canvas"
+    )
+
+
+    })
+
+  },
+
+  options = list(height = 900) # 640 w/o inputPanel
+)
+```

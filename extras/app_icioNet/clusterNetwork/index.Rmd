@@ -1,0 +1,15 @@
+---
+output: 
+  html_document:
+    toc: true
+---
+
+<!-- ## simpleNetwork -->
+
+```{r, echo=FALSE, message=FALSE}
+library(networkD3)
+src <- c("A", "A", "A", "A", "B", "B", "C", "C", "D")
+target <- c("B", "C", "D", "J", "E", "F", "G", "H", "I")
+networkData <- data.frame(src, target)
+simpleNetwork(networkData)
+```

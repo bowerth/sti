@@ -1,0 +1,23 @@
+n <- 11
+
+data61 <- data2009[data2009$cou==cou & !data2009$par%in%c('Total','ROW') & data2009$ind=='Total' & data2009$indic=='TSVAFD',]
+data62 <- data2009[data2009$cou==cou & !data2009$par%in%c('Total','ROW') & data2009$ind=='Total' & data2009$indic=='TSGR',]
+
+data62 <- data62[order(-data62$value),]
+range <- c(1:round(n/2),(nrow(data62)-round((n-1)/2)):nrow(data62))
+data6 <- rbind(data62[range,], data61[data61$par%in%data62$par[range],])
+data6$par <- factor(data6$par, levels=data6$par[order(-data6$value[data6$indic=='TSGR'])])
+
+f6 <- qplot(par, value, data = data6, fill = indic, geom = "bar", position = "dodge", stat = "identity", width = 0.65) +
+    scale_fill_brewer(palette = 'Paired',
+                      guide = guide_legend(keyheight=.2),
+                      name = "",
+                      labels = c("Gross Trade surplus/deficit (TSGR)","Value Added surplus/deficit (TSVAFD)")) +
+    theme(axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
+          axis.text.x = element_text(size=15),
+          axis.ticks = element_line(linetype=0),
+          legend.position = "top",
+          legend.text = element_text(size=15)
+          )
+print(f6)
